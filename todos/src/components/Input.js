@@ -6,12 +6,12 @@ const Input = ({onChangeText, value}) => (
         style={styles.input}
         onChangeText={onChangeText}
         value={value}
+        underlineColorAndroid="#000"
     />
 );
 
 const styles = StyleSheet.create({
     input: {
-        elevation: 1,
         fontSize: 25
     }
 });
