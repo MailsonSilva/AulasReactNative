@@ -13,6 +13,7 @@ const TodoList = ({ todos, dispathtoggleTodo }) => (
                 key={todo.id}
                 todo={todo}
                 onPressTodo={() => dispathtoggleTodo(todo.id)}
+                onLongPressTodo={() => console.log(todo)}
         />))}
     </View>
 );
