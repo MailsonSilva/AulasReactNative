@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { connect } from 'react-redux';
 import Input from './Input';
-import { addTodo, setTodoText } from '../actions';
+import { addTodo, setTodoText, updatetodo } from '../actions';
 
 class TodoForm extends React.Component{
 
@@ -11,12 +11,17 @@ class TodoForm extends React.Component{
    }
 
    onPress(){
-        const { text } = this.props.todo;
-       this.props.dispatchAddTodo(text); 
+        const { todo } = this.props;
+        if (todo.id) {
+            this.props.dispatchUpdateTodo(todo);
+        }else{
+            const { text } = todo;
+            this.props.dispatchAddTodo(text); 
+        }
    }
 
     render() {
-        const { text } = this.props.todo;
+        const { text, id } = this.props.todo;
         return(
             <View style={styles.formContainer}>
                 <View style={styles.inputContainer}>
@@ -28,7 +33,7 @@ class TodoForm extends React.Component{
                 <View style={styles.buttonContainer}>
                     <Button
                         onPress={()=> this.onPress()}
-                        title="Add"
+                        title={id ? "Save" : "Add" }
                     />
                 </View>
             </View>
@@ -64,7 +69,8 @@ const mapStateToProps = state => {
 export default connect(
     mapStateToProps,
     {
-    dispatchAddTodo: addTodo,
-    dispatchsetTodoText: setTodoText
+        dispatchAddTodo: addTodo,
+        dispatchsetTodoText: setTodoText,
+        dispatchUpdateTodo: updatetodo
     }
 )(TodoForm);
