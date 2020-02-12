@@ -1,22 +1,25 @@
 import React from 'react';
-import Router from './Router';
-
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
 import reduxThunk from 'redux-thunk';
-
-import { composeWithDevTools } from 'remote-redux-devtools';
-
+import {composeWithDevTools} from 'remote-redux-devtools';
+import Routes from './Routes';
 import rootReducer from './reducers';
 
-const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(reduxThunk)
-));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(reduxThunk)),
+);
 
-const SeriesApp = props => (
+const SeriesApp = prop => (
+  <NavigationContainer>
+    <StatusBar barStyle="light-content" backgroundColor="#2d37a8" />
     <Provider store={store}>
-        <Router />
+      <Routes />
     </Provider>
+  </NavigationContainer>
 );
 
 export default SeriesApp;

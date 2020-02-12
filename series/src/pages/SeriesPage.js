@@ -1,14 +1,10 @@
-import React from "react";
-import { StyleSheet, View, Text } from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 
-const SeriesPage = ( props ) => (
-    <View>
-        <Text>Esta é a seriesPage</Text>
-    </View>
+const SeriesPage = ({series}) => (
+  <View>
+    <Text>serie</Text>
+  </View>
 );
-
-const styles = StyleSheet.create({
-
-})
 
 export default SeriesPage;
