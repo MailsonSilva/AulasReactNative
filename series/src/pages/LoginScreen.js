@@ -50,9 +50,26 @@ class LoginScreen extends React.Component {
 
   tryLogin() {
     this.setState({isLoading: true, message: ''});
-    const {email, password} = this.state;
+    const {mail: email, password} = this.state;
 
-    this.props.tryLogin({email, password});
+    this.props
+      .tryLogin({email, password})
+      .then(user => {
+        if (user) {
+          return this.props.navigation.replace('Main'); //this.props.navigation.navigate('Main');
+        } //Com o replace não aparece a opção de retornar.(apaga o historico)
+
+        this.setState({
+          isLoading: false,
+          message: '',
+        });
+      })
+      .catch(error => {
+        this.setState({
+          isLoading: false,
+          message: this.getMessageByErroCode(error.code),
+        });
+      });
   }
 
   getMessageByErroCode(erroCode) {
@@ -93,8 +110,10 @@ class LoginScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder="e-mail"
-            value={this.state.email}
-            onChangeText={value => this.onChangeHandler('email', value)}
+            value={this.state.mail}
+            onChangeText={value => this.onChangeHandler('mail', value)}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
         </FormRow>
         <FormRow last>

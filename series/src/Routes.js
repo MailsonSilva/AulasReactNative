@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './pages/LoginScreen';
 import SeriesPage from './pages/SeriesPage';
+import SerieDetailPage from './pages/SerieDetailPage';
 const Stack = createStackNavigator();
 
 export default function Routes() {
@@ -16,6 +17,17 @@ export default function Routes() {
         headerTintColor: '#FFF',
       }}>
       <Stack.Screen
+        name="Main"
+        component={SeriesPage}
+        options={{
+          title: 'Séries',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontSize: 30,
+          },
+        }}
+      />
+      <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{
@@ -27,15 +39,13 @@ export default function Routes() {
         }}
       />
       <Stack.Screen
-        name="Main"
-        component={SeriesPage}
-        options={{
-          title: 'Séries',
+        name="SerieDetail"
+        component={SerieDetailPage}
+        options={({route}) => ({
+          title: route.params.serie.title,
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 30,
-          },
-        }}
+          headerTitleStyle: {fontSize: 30},
+        })}
       />
     </Stack.Navigator>
   );
