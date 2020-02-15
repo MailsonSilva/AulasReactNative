@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const SerieCard = ({serie, isFirstColumn, onPress}) => (
+const AddSerieCard = ({serie, isFirstColumn, onPress}) => (
   <TouchableOpacity
     onPress={onPress}
     style={[
@@ -16,10 +16,8 @@ const SerieCard = ({serie, isFirstColumn, onPress}) => (
       isFirstColumn ? styles.firstColumn : styles.lastColumn,
     ]}>
     <View style={styles.card}>
-      <Image source={{uri: serie.img}} aspectRatio={1} resizeMode={'stretch'} />
-      <View style={styles.cardTitleWrapper}>
-        <Text style={styles.cardTitle}>{serie.title}</Text>
-      </View>
+      {/* <Image source={{uri: serie.img}} aspectRatio={1} resizeMode={'stretch'} /> */}
+      <Text>oioioi</Text>
     </View>
   </TouchableOpacity>
 );
@@ -38,24 +36,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     // margin: 5, //solução 2
   },
-  cardTitleWrapper: {
-    backgroundColor: 'black',
-    height: 50,
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
-    opacity: 0.8,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 3,
-    paddingRight: 3,
-    alignItems: 'center',
-  },
-  cardTitle: {
-    color: '#FFF',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
   firstColumn: {
     paddingLeft: 10,
   },
@@ -64,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SerieCard;
+export default AddSerieCard;

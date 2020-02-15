@@ -8,10 +8,8 @@ import {composeWithDevTools} from 'remote-redux-devtools';
 import Routes from './Routes';
 import rootReducer from './reducers';
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(reduxThunk)),
-);
+const compose = composeWithDevTools({realtime: true});
+const store = createStore(rootReducer, compose(applyMiddleware(reduxThunk)));
 
 const SeriesApp = prop => (
   <NavigationContainer>

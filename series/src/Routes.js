@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './pages/LoginScreen';
 import SeriesPage from './pages/SeriesPage';
 import SerieDetailPage from './pages/SerieDetailPage';
+import SerieFormPage from './pages/SerieFormPage';
 const Stack = createStackNavigator();
 
 export default function Routes() {
@@ -39,10 +40,19 @@ export default function Routes() {
         }}
       />
       <Stack.Screen
-        name="SerieDetail"
+        name="SerieDetailPage"
         component={SerieDetailPage}
         options={({route}) => ({
           title: route.params.serie.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontSize: 30},
+        })}
+      />
+      <Stack.Screen
+        name="SerieFormPage"
+        component={SerieFormPage}
+        options={({route}) => ({
+          title: 'Nova Serie!',
           headerTitleAlign: 'center',
           headerTitleStyle: {fontSize: 30},
         })}
