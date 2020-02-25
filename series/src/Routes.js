@@ -7,6 +7,13 @@ import SerieFormPage from './pages/SerieFormPage';
 const Stack = createStackNavigator();
 
 export default function Routes() {
+  const titulo = route => {
+    const {params} = route;
+    if (params && params.serieToEdit) {
+      return params.serieToEdit.title;
+    }
+    return 'Nova Série!';
+  };
   return (
     <Stack.Navigator
       screenOptions={{
@@ -17,17 +24,6 @@ export default function Routes() {
         },
         headerTintColor: '#FFF',
       }}>
-      <Stack.Screen
-        name="Main"
-        component={SeriesPage}
-        options={{
-          title: 'Séries',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 30,
-          },
-        }}
-      />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -40,21 +36,32 @@ export default function Routes() {
         }}
       />
       <Stack.Screen
-        name="SerieDetailPage"
-        component={SerieDetailPage}
-        options={({route}) => ({
-          title: route.params.serie.title,
+        name="Main"
+        component={SeriesPage}
+        options={{
+          title: 'Séries',
           headerTitleAlign: 'center',
-          headerTitleStyle: {fontSize: 30},
-        })}
+          headerTitleStyle: {
+            fontSize: 30,
+          },
+        }}
       />
       <Stack.Screen
         name="SerieFormPage"
         component={SerieFormPage}
         options={({route}) => ({
-          title: 'Nova Serie!',
+          title: titulo(route),
           headerTitleAlign: 'center',
-          headerTitleStyle: {fontSize: 30},
+          headerTitleStyle: {fontSize: 20},
+        })}
+      />
+      <Stack.Screen
+        name="SerieDetailPage"
+        component={SerieDetailPage}
+        options={({route}) => ({
+          title: route.params.serie.title,
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontSize: 20},
         })}
       />
     </Stack.Navigator>

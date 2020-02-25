@@ -16,7 +16,16 @@ const SerieCard = ({serie, isFirstColumn, onPress}) => (
       isFirstColumn ? styles.firstColumn : styles.lastColumn,
     ]}>
     <View style={styles.card}>
-      <Image source={{uri: serie.img}} aspectRatio={1} resizeMode={'stretch'} />
+      {serie.img ? (
+        <Image source={{uri: serie.img}} aspectRatio={1} resizeMode="stretch" />
+      ) : (
+        <Image
+          source={require('../../icons/noImage.png')}
+          aspectRatio={1}
+          flex={1}
+          resizeMode="stretch"
+        />
+      )}
       <View style={styles.cardTitleWrapper}>
         <Text style={styles.cardTitle}>{serie.title}</Text>
       </View>

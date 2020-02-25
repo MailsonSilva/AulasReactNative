@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   colapsed: {
-    maxHeight: 75,
+    maxHeight: 100,
   },
   expanded: {
     flex: 1,

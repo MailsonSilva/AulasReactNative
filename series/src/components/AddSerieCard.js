@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import LottieView from 'lottie-react-native';
+import add from '../../resources/add.json';
 
 const AddSerieCard = ({serie, isFirstColumn, onPress}) => (
   <TouchableOpacity
@@ -16,25 +11,19 @@ const AddSerieCard = ({serie, isFirstColumn, onPress}) => (
       isFirstColumn ? styles.firstColumn : styles.lastColumn,
     ]}>
     <View style={styles.card}>
-      {/* <Image source={{uri: serie.img}} aspectRatio={1} resizeMode={'stretch'} /> */}
-      <Text>oioioi</Text>
+      <LottieView source={add} resizeMode="contain" autoPlay loop />
     </View>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   container: {
-    // solução se for divisivel por 2
-    //flex: 0.5,
-
     width: '50%',
     padding: 5,
     height: Dimensions.get('window').width / 2,
   },
   card: {
     flex: 1,
-    borderWidth: 1,
-    // margin: 5, //solução 2
   },
   firstColumn: {
     paddingLeft: 10,
