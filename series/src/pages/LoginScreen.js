@@ -55,10 +55,13 @@ class LoginScreen extends React.Component {
     this.props
       .tryLogin({email, password})
       .then(user => {
+        // if (user.additionalUserInfo.isNewUser) {
+        //   this.props.navigation.replace('SerieFormPage'); //this.props.navigation.navigate('Main');
+        // } else {
+        //Com o replace não aparece a opção de retornar.(apaga o historico)
         if (user) {
-          return this.props.navigation.replace('Main'); //this.props.navigation.navigate('Main');
-        } //Com o replace não aparece a opção de retornar.(apaga o historico)
-
+          this.props.navigation.replace('Main');
+        }
         this.setState({
           isLoading: false,
           message: '',

@@ -4,8 +4,6 @@ import SerieCard from '../components/SerieCard';
 import AddSerieCard from '../components/AddSerieCard';
 import {connect} from 'react-redux';
 import {watchSeries} from '../actions';
-import LottieView from 'lottie-react-native';
-import load_series from '../../resources/load_series';
 
 const isEven = number => number % 2 === 0;
 
@@ -16,16 +14,11 @@ class SeriesPage extends React.Component {
 
   render() {
     const {series, navigation} = this.props;
+
     if (series === null) {
       return (
         <View style={styles.container}>
-          <LottieView
-            source={load_series}
-            autoSize
-            resizeMode="contain"
-            autoPlay
-            loop
-          />
+          <AddSerieCard onPress={() => navigation.navigate('SerieFormPage')} />
         </View>
       );
     }

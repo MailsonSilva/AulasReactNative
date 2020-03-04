@@ -14,6 +14,7 @@ export default function Routes() {
     }
     return 'Nova Série!';
   };
+
   return (
     <Stack.Navigator
       screenOptions={{

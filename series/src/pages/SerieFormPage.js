@@ -10,12 +10,15 @@ import {
   KeyboardAvoidingView,
   Alert,
   Platform,
+  Image,
+  PermissionsAndroid,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import FormRow from '../components/FormRow';
 import SaveOk from '../components/SaveOk';
 import {connect} from 'react-redux';
 import {setField, saveSerie, setWholeSerie, resetForm} from '../actions';
+import ImagePicker from 'react-native-image-picker';
 
 class SerieFormPage extends React.Component {
   constructor(props) {
@@ -48,7 +51,7 @@ class SerieFormPage extends React.Component {
           try {
             const {serieForm, saveSerie, navigation} = this.props;
             await saveSerie(serieForm);
-            navigation.goBack();
+            navigation.replace('Main');
           } catch (error) {
             Alert.alert('Erro!', error.message);
           } finally {
@@ -59,8 +62,54 @@ class SerieFormPage extends React.Component {
     );
   }
 
+  async pickImage() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Permissão legal para câmera de aplicativo de foto',
+          message:
+            'O seriesApp precisa de acesso à sua câmera ' +
+            'para que você possa tirar fotos incríveis.',
+          buttonNeutral: 'Pergunte mais tarde',
+          buttonNegative: 'Cancelar',
+          buttonPositive: 'Sim',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        const options = {
+          title: 'Selecione uma Imagem',
+          cancelButtonTitle: 'Cancelar',
+          takePhotoButtonTitle: 'Abrir câmera',
+          chooseFromLibraryButtonTitle: 'Abrir galeria',
+          storageOptions: {
+            skipBackup: true,
+            path: 'images',
+            cameraRoll: true,
+          },
+        };
+        ImagePicker.showImagePicker(options, response => {
+          if (response.didCancel) {
+            console.log('Usuario cancelou image picker');
+          } else if (response.error) {
+            console.log('ImagePicker Error: ', response.error);
+          } else {
+            // You can also display the image using data
+
+            this.props.setField('img64', response.data);
+          }
+        });
+      } else {
+        console.log('Camera negado');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
   render() {
     const {serieForm, setField} = this.props;
+
     return (
       <KeyboardAvoidingView
         // behavior="padding"
@@ -79,11 +128,17 @@ class SerieFormPage extends React.Component {
             />
           </FormRow>
           <FormRow>
-            <TextInput
-              style={styles.input}
-              placeholder="img"
-              value={serieForm.img}
-              onChangeText={value => setField('img', value)}
+            {serieForm.img64 ? (
+              <Image
+                source={{uri: `data:image/jpeg;base64,${serieForm.img64}`}}
+                style={styles.img}
+              />
+            ) : null}
+            <Button
+              title="Selecione uma imagem"
+              onPress={() => {
+                this.pickImage();
+              }}
             />
           </FormRow>
           <FormRow>
@@ -161,6 +216,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   marginFooter: {marginBottom: 5},
+  img: {
+    aspectRatio: 1,
+    width: '100%',
+  },
 });
 
 function mapStateToProps(state) {

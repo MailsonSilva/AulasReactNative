@@ -3,7 +3,7 @@ import {View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 import LottieView from 'lottie-react-native';
 import add from '../../resources/add.json';
 
-const AddSerieCard = ({serie, isFirstColumn, onPress}) => (
+const AddSerieCard = ({isFirstColumn, onPress}) => (
   <TouchableOpacity
     onPress={onPress}
     style={[

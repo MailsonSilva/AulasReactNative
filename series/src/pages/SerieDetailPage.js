@@ -11,10 +11,10 @@ class SerieDetailPage extends React.Component {
     const {serie} = route.params;
     return (
       <ScrollView>
-        {serie.img ? (
+        {serie.img64 ? (
           <Image
             style={styles.image}
-            source={{uri: serie.img}}
+            source={{uri: `data:image/jpeg;base64,${serie.img64}`}}
             resizeMode={'contain'}
           />
         ) : (
